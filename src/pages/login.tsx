@@ -1,74 +1,131 @@
 import { useMutation } from '@apollo/client';
-import { useAuth0 } from '@auth0/auth0-react';
 import { Icon } from '@iconify/react';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import type { FormEvent } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
-import Text from '@/components/lib/Text';
+import Button from '@/components/lib/Button';
+import Heading from '@/components/lib/Heading';
+import Input from '@/components/lib/Input';
+import { UserContext } from '@/contexts/user';
 import { LOGIN } from '@/graphql/mutations/user.mutations';
+import { useToggle } from '@/hooks';
+import { validateLoginPayload } from '@/utils/validators/auth.validator';
+import { isEmpty } from '@/utils/validators/helpers';
+
+const initialState = { email: '', password: '' };
 
 const Login = () => {
   const router = useRouter();
-  const [errorOccured, setErrorOccured] = useState(false);
-  const { logout } = useAuth0();
+  const { user } = useContext(UserContext);
+  const { login } = useContext(UserContext);
+  const [payload, setPayload] = useState(initialState);
+  const [errors, setErrors] = useState(initialState);
+  const [showPassword, toggleShowPassword] = useToggle(false);
 
-  const [mutate] = useMutation(LOGIN, {
+  const [mutate, { loading }] = useMutation(LOGIN, {
     onCompleted(response) {
-      if (response?.login) {
-        localStorage.setItem('user', JSON.stringify(response?.login));
+      if (response?.adminLogin) {
+        localStorage.setItem('token', response.adminLogin?.token || '');
+        login(response.adminLogin?.user);
       }
 
-      router.push('/');
+      router.push('/dashboard');
     },
-    onError() {
-      setErrorOccured(true);
-      logout();
+    onError(error) {
+      toast.error(error.message);
     },
   });
 
   useEffect(() => {
-    setTimeout(() => {
-      mutate();
-    }, 2000);
+    if (user) {
+      router.push('/dashboard');
+    }
   }, []);
 
+  const handleChange = (event: FormEvent<HTMLInputElement>) => {
+    setPayload({
+      ...payload,
+      [event.currentTarget.name]: event.currentTarget.value,
+    });
+  };
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    setErrors(initialState);
+
+    const { valid, errors: validationErrors } = validateLoginPayload(payload);
+
+    if (!valid) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    mutate({
+      variables: {
+        input: payload,
+      },
+    });
+  };
+
   return (
-    <main className="grid min-h-screen w-full place-items-center">
-      <div className="container grid place-items-center gap-3">
-        {errorOccured ? (
-          <>
-            <Icon
-              icon="tabler:face-id-error"
-              className="text-[5rem] text-primary-main"
+    <main className="grid min-h-screen w-full place-items-center bg-primary-lighter">
+      <div className="flex h-full w-full max-w-[900px] items-center shadow-lg shadow-primary-main/20 lg:h-[70vh]">
+        <form
+          onSubmit={handleSubmit}
+          className="grid h-full w-full place-items-center content-center gap-10 bg-white p-5 md:p-10 lg:w-1/2"
+        >
+          <Heading className="font-bold">Welcome!</Heading>
+
+          <div className="grid w-full gap-3">
+            <Input
+              label="Email"
+              required
+              placeholder="Enter your email address"
+              name="email"
+              value={payload.email}
+              onChange={handleChange}
+              error={!isEmpty(errors.email)}
+              helperText={errors.email}
+              type="email"
             />
 
-            <Text variant="subheading" className="text-center">
-              A problem occured while trying to login. Please try again later.
-            </Text>
-          </>
-        ) : (
-          <>
-            <motion.figure
-              className="relative h-32 w-32 duration-200"
-              animate={{
-                scale: [0.7, 1, 0.7],
-                transition: { repeat: Infinity, duration: 3 },
-              }}
-            >
-              <Image
-                src="/android-chrome-192x192.png"
-                layout="fill"
-                alt="Logo"
-              />
-            </motion.figure>
+            <Input
+              label="Password"
+              required
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Enter your password"
+              endIcon={
+                <Icon
+                  icon={
+                    showPassword
+                      ? 'material-symbols:visibility-off-outline'
+                      : 'material-symbols:visibility-outline'
+                  }
+                  className="cursor-pointer text-xl text-black/20"
+                  onClick={toggleShowPassword}
+                />
+              }
+              name="password"
+              value={payload.password}
+              onChange={handleChange}
+              error={!isEmpty(errors.password)}
+              helperText={errors.password}
+            />
+          </div>
 
-            <Text variant="subheading" className="text-center">
-              Logging in...
-            </Text>
-          </>
-        )}
+          <Button type="submit" className="w-full" loading={loading}>
+            Login
+          </Button>
+        </form>
+        <div className="hidden h-full w-full place-items-center bg-primary-lighter lg:grid lg:w-1/2">
+          <figure className="relative h-20 w-64 duration-200">
+            <Image src="/assets/images/logo.png" layout="fill" alt="Logo" />
+          </figure>
+        </div>
       </div>
     </main>
   );

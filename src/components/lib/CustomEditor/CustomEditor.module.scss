@@ -1,0 +1,55 @@
+.body {
+  @apply grid w-full max-w-[900px] gap-5 font-catamaran leading-loose text-aima-black;
+
+  h1 {
+    @apply relative font-catamaran text-4xl font-semibold lg:text-5xl;
+  }
+
+  h2 {
+    @apply relative font-catamaran text-2xl font-semibold lg:text-4xl;
+  }
+
+  h3 {
+    @apply relative font-catamaran text-xl lg:text-3xl;
+  }
+
+  h4 {
+    @apply relative font-catamaran text-lg lg:text-2xl;
+  }
+
+  h5 {
+    @apply relative font-catamaran text-base lg:text-xl;
+  }
+
+  h6 {
+    @apply relative font-catamaran text-sm lg:text-lg;
+  }
+
+  ul {
+    @apply ml-5 list-disc lg:ml-10;
+  }
+
+  p {
+    @apply font-catamaran text-sm md:text-base;
+  }
+
+  mark {
+    @apply bg-primary-lighter;
+  }
+
+  hr {
+    @apply mx-auto my-10 w-[40%] border-4 border-dashed md:w-40;
+  }
+
+  figcaption {
+    @apply mt-3 text-center font-catamaran text-xs md:text-sm;
+  }
+
+  code {
+    @apply rounded-md border border-primary-main/10 bg-primary-lighter/50 py-0.5 px-1.5 text-primary-main/70;
+  }
+
+  a {
+    @apply font-semibold italic text-primary-main underline;
+  }
+}

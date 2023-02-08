@@ -53,17 +53,13 @@ const FeaturedPost: FC<FeaturedPostProps> = ({
         animate="animate"
       >
         <motion.div variants={childrenVariants}>
-          <Link href={`/categories/${post?.category?.id}`} passHref>
-            <a>
-              <Heading className="font-ephesis capitalize" variant="h3">
-                {post?.category?.name}
-              </Heading>{' '}
-            </a>
-          </Link>
+          <Heading className="font-ephesis capitalize" variant="h3">
+            {post?.category?.name}
+          </Heading>
         </motion.div>
 
         <motion.div variants={childrenVariants}>
-          <Heading>{post?.title}</Heading>
+          <Heading className="leading-tight">{post?.title}</Heading>
         </motion.div>
 
         <motion.div variants={childrenVariants}>
@@ -73,10 +69,10 @@ const FeaturedPost: FC<FeaturedPostProps> = ({
         </motion.div>
 
         <motion.div variants={childrenVariants}>
-          <Link href={`/posts/${post?.slug}`} passHref>
+          <Link href={`/posts/${post?.id}`} passHref>
             <a>
               <Button variant="outline" className="mt-5">
-                Read Post
+                Edit Post
               </Button>
             </a>
           </Link>

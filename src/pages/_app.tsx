@@ -8,13 +8,13 @@ import {
   InMemoryCache,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { Auth0Provider } from '@auth0/auth0-react';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
 
 import AuthWrapper from '@/containers/AuthWrapper';
+import AppContext from '@/contexts';
 import { store } from '@/store';
 import { toastOptions } from '@/utils/config/toaster.config';
 import { grahpQLApiUri } from '@/utils/constants';
@@ -43,23 +43,16 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
 
   return (
-    <ApolloProvider client={client}>
-      <Auth0Provider
-        domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN as string}
-        clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID as string}
-        cacheLocation={'localstorage'}
-        authorizationParams={{
-          redirect_uri: `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
-        }}
-      >
+    <AppContext>
+      <ApolloProvider client={client}>
         <Provider store={store}>
           <AuthWrapper>
             <Component {...pageProps} key={router.pathname} />
             <Toaster position="top-right" toastOptions={toastOptions} />
           </AuthWrapper>
         </Provider>
-      </Auth0Provider>
-    </ApolloProvider>
+      </ApolloProvider>
+    </AppContext>
   );
 };
 

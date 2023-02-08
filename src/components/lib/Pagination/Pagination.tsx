@@ -8,7 +8,12 @@ import Text from '../Text';
 import styles from './Pagination.module.scss';
 import type PaginationProps from './PaginationProps';
 
-const Pagination: FC<PaginationProps> = ({ setPage, count, page }) => {
+const Pagination: FC<PaginationProps> = ({
+  setPage,
+  count,
+  page,
+  shortText = false,
+}) => {
   const smallScreen = useMediaQuery('(max-width: 600px)');
 
   return (
@@ -29,15 +34,19 @@ const Pagination: FC<PaginationProps> = ({ setPage, count, page }) => {
               className={`${styles.navigator} ${styles.navigator__previous}`}
             >
               <Icon icon="mdi:arrow-left-thin" className="text-2xl" />
-              {!smallScreen && <Text variant="caption">Previous Page</Text>}
+              {!smallScreen && !shortText && (
+                <Text variant="caption">Previous Page</Text>
+              )}
             </button>
           }
           nextLabel={
             <button
-              disabled={page === count}
+              disabled={page === count || count === 1}
               className={`${styles.navigator} ${styles.navigator__next}`}
             >
-              {!smallScreen && <Text variant="caption">Next Page</Text>}
+              {!smallScreen && !shortText && (
+                <Text variant="caption">Next Page</Text>
+              )}
               <Icon icon="mdi:arrow-right-thin" className="text-2xl" />
             </button>
           }

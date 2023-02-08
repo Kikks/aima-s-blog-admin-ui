@@ -1,93 +1,127 @@
+import { useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
-import { motion } from 'framer-motion';
-import request from 'graphql-request';
-import type { GetServerSideProps, NextPage } from 'next';
-import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
-import Heading from '@/components/lib/Heading';
-import Category from '@/components/shared/Category';
-import type { GetCategoriesQuery } from '@/graphql/__generated__/graphql';
-import { GET_CATEGORIES } from '@/graphql/queries/category.queries';
+import Button from '@/components/lib/Button';
+import Card from '@/components/lib/Card';
+import FullPageLoader from '@/components/lib/FullPageLoader';
+import Input from '@/components/lib/Input';
+import Pagination from '@/components/lib/Pagination';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+} from '@/components/lib/Table';
+import Text from '@/components/lib/Text';
+import type { Meta as RequestMeta } from '@/graphql/__generated__/graphql';
+import { GET_CATEGORIES_STATS } from '@/graphql/queries/category.queries';
+import { useDebounce } from '@/hooks';
 import PageLayout from '@/layouts/PageLayout';
 import Meta from '@/templates/Meta';
-import { grahpQLApiUri } from '@/utils/constants';
+import type ICategory from '@/types/Category.type';
+import { defaultMeta } from '@/utils/constants';
 
-type CategoryPageProps = {
-  categoryResponse: GetCategoriesQuery | null;
-};
+const Categories = () => {
+  const router = useRouter();
+  const [search, setSearch] = useState('');
+  const [categories, setCategories] = useState<
+    ({
+      category: ICategory;
+      posts: number;
+    } | null)[]
+  >([]);
+  const [meta, setMeta] = useState<RequestMeta>(defaultMeta);
+  const [page, setPage] = useState(1);
 
-export const getServerSideProps: GetServerSideProps<
-  CategoryPageProps
-> = async () => {
-  try {
-    const categoryResponse = await request(grahpQLApiUri, GET_CATEGORIES, {
-      limit: 50,
-      page: 1,
-    });
+  const debouncedSearch = useDebounce(search, 500) as string;
 
-    return {
-      props: {
-        categoryResponse,
-      },
-    };
-  } catch (error) {
-    return {
-      props: {
-        categoryResponse: null,
-      },
-    };
-  }
-};
-
-const Categories: NextPage<CategoryPageProps> = ({ categoryResponse }) => {
-  const categories = categoryResponse?.getCategories.data || [];
+  const { loading } = useQuery(GET_CATEGORIES_STATS, {
+    variables: { limit: 20, page, search: debouncedSearch },
+    onCompleted(response) {
+      setCategories(response?.getCategoriesStats?.data || []);
+      setMeta(response?.getCategoriesStats?.meta || defaultMeta);
+    },
+  });
 
   return (
     <PageLayout
+      title="Categories"
       meta={
         <Meta
-          title="Categories | Aima's Corner"
-          description="A lsit of all catgegories in this blog."
+          title="Categories | Aima's Corner Admin Panel"
+          description="The list of categories of posts in Aima's corner"
         />
       }
+      actionButton={
+        <Button onClick={() => router.push('/categories/new')}>
+          New Category
+        </Button>
+      }
     >
-      <section className="-mt-5 w-full bg-primary-bg md:-mt-10">
-        <div className="container grid justify-items-center gap-5 py-10 md:gap-7 md:py-20">
-          <motion.div
-            whileInView={{ opacity: 1, translateX: 0 }}
-            initial={{ opacity: 0, translateX: 50 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ amount: 0.5, once: true }}
-          >
-            <Heading className="uppercase" decorated variant="h3">
-              Categories
-            </Heading>
-          </motion.div>
-
-          <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 md:gap-10 lg:grid-cols-3">
-            {categories.map((category, index) => (
-              <motion.div
-                className="col-span-1"
-                key={index}
-                whileInView={{ opacity: 1, translateY: 0 }}
-                initial={{ opacity: 0, translateY: 50 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ amount: 0.5, once: true }}
-              >
-                <Category {...category} />
-              </motion.div>
-            ))}
-          </div>
-
-          <Link passHref href="/posts">
-            <a className="mt-5 flex gap-3 justify-self-end text-primary-main">
-              Browse all articles{' '}
-              <Icon icon="ic:outline-arrow-right-alt" className="text-2xl" />
-            </a>
-          </Link>
+      <div className="mb-10 flex justify-end">
+        <div className="w-full max-w-[300px]">
+          <Input
+            type="search"
+            placeholder="Search categories..."
+            startIcon={
+              <Icon
+                icon="ion:search"
+                className="cursor-pointer text-xl text-black/20"
+              />
+            }
+            value={search}
+            onChange={(event) => setSearch(event.currentTarget.value)}
+          />
         </div>
-      </section>
+      </div>
+
+      <Card className="grid w-full gap-10">
+        {categories.length === 0 ? (
+          <div className="my-20 grid place-items-center text-center">
+            <Text>There are no categories to display.</Text>
+          </div>
+        ) : (
+          <>
+            <Table>
+              <TableHeader
+                items={[
+                  `${meta.total} categor${(meta.total || 0) > 1 ? 'ies' : 'y'}`,
+                  'No. of Posts',
+                  'Is Featured',
+                ]}
+              />
+              <TableBody>
+                {categories.map((category, index) => (
+                  <TableRow key={index}>
+                    <TableCell url={`/categories/${category?.category?.id}`}>
+                      <Text className="capitalize">
+                        {category?.category?.name}
+                      </Text>
+                    </TableCell>
+                    <TableCell url={`/categories/${category?.category?.id}`}>
+                      <Text>{category?.posts}</Text>
+                    </TableCell>
+                    <TableCell url={`/categories/${category?.category?.id}`}>
+                      <Text>
+                        {category?.category?.isFeatured ? 'Yes' : 'No'}
+                      </Text>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+
+            <Pagination count={meta.pages || 0} page={page} setPage={setPage} />
+          </>
+        )}
+      </Card>
+
+      <div className="h-[1000px]" />
+
+      {loading && <FullPageLoader />}
     </PageLayout>
   );
 };

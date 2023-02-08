@@ -5,8 +5,8 @@
 
 .size {
   &__small {
-    @apply min-w-[120px] px-3 py-3 text-sm 
-    lg:min-w-[150px] lg:py-3;
+    @apply min-w-[100px] px-3 py-3 text-sm 
+    lg:min-w-[110px] lg:py-3;
   }
 
   &__medium {

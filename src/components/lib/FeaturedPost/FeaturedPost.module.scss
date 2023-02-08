@@ -5,15 +5,19 @@
     @apply grid-cols-2;
   }
 
+  @media screen and (min-width: 1024px) {
+    @apply grid-cols-1;
+  }
+
   & > div {
     @apply order-2;
 
     @media screen and (min-width: 475px) {
       @apply order-1;
+    }
 
-      &__long {
-        @apply lg:pr-20;
-      }
+    @media screen and (min-width: 1024px) {
+      @apply order-2;
     }
   }
 
@@ -22,6 +26,10 @@
 
     @media screen and (min-width: 475px) {
       @apply order-2 aspect-[8/10] max-w-[200px] rotate-[3deg] lg:max-w-[300px];
+    }
+
+    @media screen and (min-width: 1024px) {
+      @apply order-1 aspect-[16/12] lg:max-w-none;
     }
   }
 

@@ -1,14 +1,18 @@
 import { gql } from '../__generated__';
 
 export const LOGIN = gql(`
-  mutation userLogin {
-    login {
-      id
-      name
-      email
-      image
-      createdAt
-      updatedAt
+  mutation adminLogin($input: AdminLoginInput!) {
+    adminLogin(input: $input) {
+      token
+      user {
+        id
+        image
+        firstName
+        lastName
+        email
+        createdAt
+        updatedAt
+      }
     }
   }
 `);

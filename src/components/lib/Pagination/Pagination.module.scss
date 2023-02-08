@@ -19,12 +19,12 @@
 }
 
 .page {
-  @apply flex h-7 w-7 items-center justify-center rounded-full border border-primary-main text-xs md:h-10 md:w-10;
+  @apply flex h-5 w-5 items-center justify-center rounded-full border border-primary-main text-xs md:h-7 md:w-7;
 }
 
 .active__page {
-  @apply flex h-7 w-7 items-center justify-center bg-primary-main text-xs 
-  text-white md:h-10 md:w-10;
+  @apply flex h-5 w-5 items-center justify-center bg-primary-main text-xs 
+  text-white md:h-7 md:w-7;
 }
 
 .navigator {

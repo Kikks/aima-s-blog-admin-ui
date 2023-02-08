@@ -45,3 +45,30 @@ input[type='password']::-ms-clear {
 .container {
   @apply mx-auto w-full max-w-[1200px] px-5 md:px-10;
 }
+
+.text-area-container {
+  & div {
+    @apply flex flex-1 flex-col;
+  }
+
+  & textarea {
+    @apply flex-1;
+  }
+}
+
+.post-title {
+  &:empty:before {
+    content: 'Post title';
+    @apply text-aima-black/30;
+  }
+
+  @apply w-full resize-none border-none 
+  bg-transparent font-catamaran text-5xl font-semibold leading-tight text-aima-black
+  outline-none lg:text-6xl;
+}
+
+.ce-block__content,
+.ce-toolbar__content {
+  width: 100%;
+  max-width: none !important;
+}

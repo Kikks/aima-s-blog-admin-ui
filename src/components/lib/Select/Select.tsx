@@ -9,6 +9,7 @@ const Input: FC<InputProps> = ({
   error,
   helperText,
   options,
+  className,
   ...rest
 }) => {
   return (
@@ -21,13 +22,15 @@ const Input: FC<InputProps> = ({
 
       <div className="w-full">
         <div
-          className={`mx-auto flex w-full max-w-[700px] items-center overflow-hidden rounded-sm border bg-[#fefefe] focus-within:border-primary-main ${
+          className={`mx-auto flex w-full max-w-[700px] items-center overflow-hidden rounded-md border bg-[#fefefe] focus-within:border-primary-main ${
             error ? 'border-red-500' : 'border-gray-300'
           }`}
         >
           <select
             id={id}
-            className="flex-1 border-none bg-transparent py-3 px-5 font-medium outline-none focus:border-none"
+            className={`flex-1 border-none bg-transparent py-3 px-5 font-medium outline-none focus:border-none ${
+              className || ''
+            }`}
             {...rest}
           >
             {options?.map((option, index) => (

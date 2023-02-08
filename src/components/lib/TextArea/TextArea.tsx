@@ -8,10 +8,11 @@ const TextArea: FC<TextAreaProps> = ({
   id,
   error,
   helperText,
+  containerClassName,
   ...rest
 }) => {
   return (
-    <div className="w-full">
+    <div className={`w-full ${containerClassName || ''}`}>
       {label && (
         <label className="text-sm font-bold" htmlFor={id}>
           {label}
@@ -26,7 +27,7 @@ const TextArea: FC<TextAreaProps> = ({
         >
           <textarea
             id={id}
-            className="flex-1 border-none bg-transparent py-3 px-5  font-medium outline-none focus:border-none"
+            className="w-full flex-1 border-none bg-transparent py-3 px-5  font-medium outline-none focus:border-none"
             {...rest}
           />
         </div>

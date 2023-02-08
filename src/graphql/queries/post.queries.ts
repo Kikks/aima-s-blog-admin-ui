@@ -24,33 +24,33 @@ export const GET_FEATURED_POSTS = gql(`
 `);
 
 export const GET_POSTS = gql(`
-  query getPosts(
+  query getAllPosts(
     $category: ID
     $limit: Int
     $order: String
     $page: Int
     $search: String
     $sortBy: String
+    $isPublished: Boolean
   ) {
-    getPosts(
+    getAllPosts(
       category: $category
       limit: $limit
       order: $order
       page: $page
       search: $search
       sortBy: $sortBy
+      isPublished: $isPublished
     ) {
       data {
         id
         title
-        coverImage
-        preview
-        slug
         category {
           id
           name
         }
         isPublished
+        publishedAt
         createdAt
         updatedAt
       }
@@ -64,21 +64,22 @@ export const GET_POSTS = gql(`
 `);
 
 export const GET_POST = gql(`
-  query getPost($slug: String!) {
-    getPost(slug: $slug) {
+  query adminGetPost($postId: ID!) {
+    adminGetPost(id: $postId) {
       post {
         id
-        audio
         title
         coverImage
-        body
         preview
         slug
+        audio
+        body
         category {
           id
           name
         }
         isPublished
+        publishedAt
         createdAt
         updatedAt
       }
@@ -102,5 +103,21 @@ export const GET_PREVIOUS_AND_NEXT_POST = gql(`
         id
       }
     }
+  }
+`);
+
+export const COUNT_POSTS = gql(`
+  query countPosts {
+    countPosts {
+      total
+      drafts
+      published
+    }
+  }
+`);
+
+export const GET_IS_POST_FEATURED = gql(`
+  query getIsPostFeaured($postId: ID!) {
+    getIsPostFeatured(postId: $postId)
   }
 `);

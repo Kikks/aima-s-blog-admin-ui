@@ -19,6 +19,7 @@ export const GET_CATEGORIES = gql(`
         id
         name
         image
+        isFeatured
         createdAt
         updatedAt
       }
@@ -37,8 +38,47 @@ export const GET_CATEGORY = gql(`
       id
       name
       image
+      isFeatured
+      description
       createdAt
       updatedAt
+    }
+  }
+`);
+
+export const COUNT_CATEGORIES = gql(`
+  query countCategories {
+    countCategories
+  }
+`);
+
+export const GET_CATEGORIES_STATS = gql(`
+  query getCategoryStats(
+    $limit: Int
+    $page: Int
+    $search: String
+  ) {
+    getCategoriesStats(
+      limit: $limit
+      page: $page
+      search: $search
+    ) {
+      data {
+        category {
+          id
+          name
+          image
+          isFeatured
+          createdAt
+          updatedAt
+        }
+        posts
+      }
+      meta {
+        currentPage
+        pages
+        total
+      }
     }
   }
 `);

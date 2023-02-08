@@ -3,4 +3,5 @@ export default interface TextAreaProps
   error?: boolean;
   helperText?: string;
   label?: string;
+  containerClassName?: string;
 }
