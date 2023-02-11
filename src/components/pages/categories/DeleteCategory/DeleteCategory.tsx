@@ -11,9 +11,11 @@ import Heading from '@/components/lib/Heading';
 import Text from '@/components/lib/Text';
 import { DELETE_CATEGORY } from '@/graphql/mutations/categories.mutations';
 import {
+  COUNT_CATEGORIES,
   GET_CATEGORIES_STATS,
   GET_CATEGORY,
 } from '@/graphql/queries/category.queries';
+import { COUNT_POSTS, GET_POSTS } from '@/graphql/queries/post.queries';
 import { useToggle } from '@/hooks';
 
 import type DeleteCategoryProps from './DeleteCategory.props';
@@ -31,8 +33,20 @@ const DeleteCategory: FC<DeleteCategoryProps> = ({ categoryId }) => {
       {
         query: GET_CATEGORY,
       },
+      {
+        query: GET_POSTS,
+      },
+      {
+        query: COUNT_POSTS,
+      },
+      {
+        query: COUNT_CATEGORIES,
+      },
+      'getAllPosts',
+      'countPosts',
       'getCategoryStats',
       'getCategory',
+      'countCategories',
     ],
     onCompleted() {
       toggleOpen();
