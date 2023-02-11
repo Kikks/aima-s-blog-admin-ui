@@ -39,7 +39,7 @@ const PageLayout: FC<PropsWithChildren<PageLayoutProps>> = ({
         <SideNav isOpen={sideNavIsOpen} onClose={toggleSideNav} />
 
         <main className="relative flex h-full w-full flex-1 flex-col overflow-y-auto overflow-x-hidden bg-aima-white p-5 pt-0 lg:p-10 lg:pt-0">
-          <div className="sticky top-0 left-0 z-20 grid w-full gap-3 border-b border-black/10 bg-aima-white py-5 lg:pt-10 lg:pb-5">
+          <div className="sticky top-0 left-0 z-[100] grid w-full gap-3 border-b border-black/10 bg-aima-white py-5 lg:pt-10 lg:pb-5">
             <div className="flex w-full items-center gap-3">
               {back && (
                 <button

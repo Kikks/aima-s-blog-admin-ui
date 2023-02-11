@@ -48,8 +48,8 @@ export const UNPUBLISH_POST = gql(`
 `);
 
 export const FEATURE_POST = gql(`
-  mutation featurePost($postId: ID!, $themeId: ID!) {
-    featurePost(postId: $postId, themeId: $themeId)
+  mutation featurePost($postId: ID!, $themeId: ID!, $index: Int) {
+    featurePost(postId: $postId, themeId: $themeId, index: $index)
   }
 `);
 

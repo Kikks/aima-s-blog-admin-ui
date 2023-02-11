@@ -25,6 +25,10 @@
     @apply relative font-catamaran text-sm lg:text-lg;
   }
 
+  ol {
+    @apply ml-5 list-decimal lg:ml-10;
+  }
+
   ul {
     @apply ml-5 list-disc lg:ml-10;
   }
@@ -51,5 +55,9 @@
 
   a {
     @apply font-semibold italic text-primary-main underline;
+  }
+
+  iframe {
+    @apply mx-auto;
   }
 }

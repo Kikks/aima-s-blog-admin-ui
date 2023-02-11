@@ -1,13 +1,6 @@
 .base {
-  @apply relative grid h-full w-full grid-cols-1 content-start items-center gap-5 rounded-md p-5 md:p-10;
-
-  @media screen and (min-width: 475px) {
-    @apply grid-cols-2;
-  }
-
-  @media screen and (min-width: 1024px) {
-    @apply grid-cols-1;
-  }
+  @apply relative grid min-h-[400px] w-full content-center justify-items-center gap-5 rounded-md bg-gray-200 p-5 
+  sm:min-h-[500px] md:min-h-[400px] md:p-10 lg:min-h-[500px];
 
   & > div {
     @apply order-2;
@@ -34,7 +27,7 @@
   }
 
   &__long {
-    @apply lg:col-span-2 lg:grid-cols-2;
+    @apply lg:col-span-2 lg:min-h-[30vw];
 
     & figure {
       @media screen and (min-width: 475px) {
@@ -58,38 +51,6 @@
 
     & button {
       @apply border-secondary-border hover:bg-secondary-main hover:text-white;
-    }
-  }
-
-  &__onion {
-    @apply bg-[#FBDFFF];
-
-    & button {
-      @apply border-[#540660] hover:bg-[#7e108f] hover:text-white;
-    }
-  }
-
-  &__emerald {
-    @apply bg-[#ADF5D3];
-
-    & button {
-      @apply border-[#0F9857] hover:bg-[#11b468] hover:text-white;
-    }
-  }
-
-  &__blush {
-    @apply bg-[#FFCFCF];
-
-    & button {
-      @apply border-[#9B0808] hover:bg-[#db1313] hover:text-white;
-    }
-  }
-
-  &__heliotrope {
-    @apply bg-[#DEDFFF];
-
-    & button {
-      @apply border-[#0E14B0] hover:bg-[#1219e1] hover:text-white;
     }
   }
 }

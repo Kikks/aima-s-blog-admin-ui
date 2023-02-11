@@ -31,6 +31,7 @@ const FeaturedPost: FC<FeaturedPostProps> = ({
   post,
   theme,
   variant = 'short',
+  showEditButton = true,
 }) => {
   const variantBase = match(variant, {
     short: styles.base,
@@ -41,6 +42,10 @@ const FeaturedPost: FC<FeaturedPostProps> = ({
   const postTheme = match(theme?.name || '', {
     cool__love: styles['theme__cool-love'],
     passion: styles.theme__passion,
+    onion: styles.theme__onion,
+    emerald: styles.theme__emerald,
+    blush: styles.theme__blush,
+    heliotrope: styles.theme__heliotrope,
     default: styles['theme__cool-love'] || '',
   });
 
@@ -68,15 +73,17 @@ const FeaturedPost: FC<FeaturedPostProps> = ({
           </Text>
         </motion.div>
 
-        <motion.div variants={childrenVariants}>
-          <Link href={`/posts/${post?.id}`} passHref>
-            <a>
-              <Button variant="outline" className="mt-5">
-                Edit Post
-              </Button>
-            </a>
-          </Link>
-        </motion.div>
+        {showEditButton && (
+          <motion.div variants={childrenVariants}>
+            <Link href={`/posts/${post?.id}`} passHref>
+              <a>
+                <Button variant="outline" className="mt-5">
+                  Edit Post
+                </Button>
+              </a>
+            </Link>
+          </motion.div>
+        )}
       </motion.div>
 
       <motion.figure

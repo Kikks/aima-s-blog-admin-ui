@@ -5,4 +5,5 @@ export default interface FeaturedPostProps {
   post?: IPost | null;
   theme?: ITheme | null;
   variant?: 'long' | 'short';
+  showEditButton?: boolean;
 }

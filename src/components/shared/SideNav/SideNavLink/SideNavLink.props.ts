@@ -4,6 +4,7 @@ export default interface SideNavLinkProps {
   icon: string;
   title: string;
   children?: {
+    icon?: string;
     url: string;
     title: string;
   }[];

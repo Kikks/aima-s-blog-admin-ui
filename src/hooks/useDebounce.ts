@@ -5,6 +5,7 @@ export default function useDebounce(value: string | number, delay: number) {
 
   useEffect(() => {
     const handler = setTimeout(() => {
+      if (value === debouncedValue) return;
       setDebouncedValue(value);
     }, delay);
 

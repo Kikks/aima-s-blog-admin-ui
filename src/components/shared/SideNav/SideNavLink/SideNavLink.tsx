@@ -77,7 +77,18 @@ const SideNavLink: FC<SideNavLinkProps> = ({
         <div className="py-3 pl-12">
           {children.map((item, index) => (
             <Link href={item.url} key={index} passHref>
-              <a className="group flex w-full items-center gap-3 py-3">
+              <a className="group flex w-full items-center gap-2 py-2">
+                {item?.icon && (
+                  <Icon
+                    className={`text-xl ${
+                      fullPath.startsWith(item.url)
+                        ? 'text-primary-main'
+                        : 'text-aima-black'
+                    } group-hover:!text-primary-main`}
+                    icon={item.icon}
+                  />
+                )}
+
                 <Text
                   className={`${
                     fullPath.startsWith(item.url)

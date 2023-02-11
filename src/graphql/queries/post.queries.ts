@@ -6,6 +6,7 @@ export const GET_FEATURED_POSTS = gql(`
       theme {
         name
       }
+      index
       post {
         id
         title

@@ -46,6 +46,7 @@ const Dashboard = () => {
     | ({
         post?: IPost | null;
         theme?: ITheme | null;
+        index?: number | null;
       } | null)[]
     | null
   >([]);
@@ -91,7 +92,11 @@ const Dashboard = () => {
   });
   const { loading: featuredPostsLoading } = useQuery(GET_FEATURED_POSTS, {
     onCompleted(response) {
-      setFeauredPosts(response?.getFeaturedPosts || []);
+      const array = [...(response?.getFeaturedPosts || [])];
+
+      setFeauredPosts(
+        array.sort((a, b) => (a?.index || 0) - (b?.index || 0)) || []
+      );
     },
     onError(error) {
       toast.error(error?.message);
@@ -139,27 +144,6 @@ const Dashboard = () => {
         />
 
         <Card
-          title="Featured Posts"
-          className="col-span-1 md:col-span-2 lg:col-span-3"
-        >
-          <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
-            {featuredPostsLoading ? (
-              <div className="col-span-1 my-20 grid w-full place-items-center lg:col-span-2">
-                <Loader color="#003049" />
-              </div>
-            ) : (featuredPosts || []).length === 0 ? (
-              <div className="col-span-1 my-20 grid place-items-center text-center lg:col-span-2">
-                <Text>There are no featured posts to display.</Text>
-              </div>
-            ) : (
-              (featuredPosts || []).map((featuredPost, index) => (
-                <FeaturedPost key={index} {...featuredPost} />
-              ))
-            )}
-          </div>
-        </Card>
-
-        <Card
           title="Recent Posts"
           className="col-span-1 md:col-span-2 lg:col-span-3"
         >
@@ -204,6 +188,48 @@ const Dashboard = () => {
                   className="flex items-center justify-center gap-2"
                 >
                   View all posts{' '}
+                  <Icon
+                    icon="material-symbols:arrow-right-alt-rounded"
+                    className="text-2xl"
+                  />
+                </Button>
+              </a>
+            </Link>
+          </div>
+        </Card>
+
+        <Card
+          title="Featured Posts"
+          className="col-span-1 md:col-span-2 lg:col-span-3"
+        >
+          <div className="grid w-full gap-5">
+            <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
+              {featuredPostsLoading ? (
+                <div className="col-span-1 my-20 grid w-full place-items-center lg:col-span-2">
+                  <Loader color="#003049" />
+                </div>
+              ) : (featuredPosts || []).length === 0 ? (
+                <div className="col-span-1 my-20 grid place-items-center text-center lg:col-span-2">
+                  <Text>There are no featured posts to display.</Text>
+                </div>
+              ) : (
+                (featuredPosts || []).map((featuredPost, index) => (
+                  <FeaturedPost
+                    key={index}
+                    {...featuredPost}
+                    variant={featuredPost?.index === 0 ? 'long' : 'short'}
+                  />
+                ))
+              )}
+            </div>
+
+            <Link href="/posts/featured" passHref>
+              <a>
+                <Button
+                  variant="outline"
+                  className="flex items-center justify-center gap-2"
+                >
+                  Edit featured posts{' '}
                   <Icon
                     icon="material-symbols:arrow-right-alt-rounded"
                     className="text-2xl"

@@ -19,7 +19,6 @@ const initialState = { email: '', password: '' };
 
 const Login = () => {
   const router = useRouter();
-  const { user } = useContext(UserContext);
   const { login } = useContext(UserContext);
   const [payload, setPayload] = useState(initialState);
   const [errors, setErrors] = useState(initialState);
@@ -30,9 +29,8 @@ const Login = () => {
       if (response?.adminLogin) {
         localStorage.setItem('token', response.adminLogin?.token || '');
         login(response.adminLogin?.user);
+        router.push('/dashboard');
       }
-
-      router.push('/dashboard');
     },
     onError(error) {
       toast.error(error.message);
@@ -40,7 +38,10 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (user) {
+    const userData = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+
+    if (userData && token) {
       router.push('/dashboard');
     }
   }, []);

@@ -26,7 +26,7 @@ const documents = {
     "\n  mutation deletePost($postId: ID!) {\n    deletePost(id: $postId)\n  }\n": types.DeletePostDocument,
     "\n  mutation publishPost($postId: ID!) {\n    publishPost(id: $postId)\n  }\n": types.PublishPostDocument,
     "\n  mutation unpublishPost($postId: ID!) {\n    unpublishPost(id: $postId)\n  }\n": types.UnpublishPostDocument,
-    "\n  mutation featurePost($postId: ID!, $themeId: ID!) {\n    featurePost(postId: $postId, themeId: $themeId)\n  }\n": types.FeaturePostDocument,
+    "\n  mutation featurePost($postId: ID!, $themeId: ID!, $index: Int) {\n    featurePost(postId: $postId, themeId: $themeId, index: $index)\n  }\n": types.FeaturePostDocument,
     "\n  mutation unfeaturePost($postId: ID!) {\n    unfeaturePost(postId: $postId)\n  }\n": types.UnfeaturePostDocument,
     "\n  query getThemes {\n    getThemes {\n      id\n      name\n    }\n  }\n": types.GetThemesDocument,
     "\n  query getLatestTheme {\n    getLatestTheme {\n      id\n      name\n    }\n  }\n": types.GetLatestThemeDocument,
@@ -38,7 +38,7 @@ const documents = {
     "\n  query getCategoryStats(\n    $limit: Int\n    $page: Int\n    $search: String\n  ) {\n    getCategoriesStats(\n      limit: $limit\n      page: $page\n      search: $search\n    ) {\n      data {\n        category {\n          id\n          name\n          image\n          isFeatured\n          createdAt\n          updatedAt\n        }\n        posts\n      }\n      meta {\n        currentPage\n        pages\n        total\n      }\n    }\n  }\n": types.GetCategoryStatsDocument,
     "\n  query getUserLikeForPost($postId: ID!) {\n    getUserLikeForPost(postId: $postId) {\n      id\n      post\n      user\n    }\n  }\n": types.GetUserLikeForPostDocument,
     "\n  query getComments($postId: ID!, $page: Int, $limit: Int) {\n    getComments(postId: $postId, limit: $limit, page: $page) {\n      data {\n        id\n        body\n        user {\n          id\n          name\n          email\n          image\n        }\n        post\n        createdAt\n      }\n      meta {\n        currentPage\n        pages\n        total\n      }\n    }\n  }\n": types.GetCommentsDocument,
-    "\n  query featuredPosts {\n    getFeaturedPosts {\n      theme {\n        name\n      }\n      post {\n        id\n        title\n        coverImage\n        preview\n        slug\n        category {\n          id\n          name\n        }\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.FeaturedPostsDocument,
+    "\n  query featuredPosts {\n    getFeaturedPosts {\n      theme {\n        name\n      }\n      index\n      post {\n        id\n        title\n        coverImage\n        preview\n        slug\n        category {\n          id\n          name\n        }\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.FeaturedPostsDocument,
     "\n  query getAllPosts(\n    $category: ID\n    $limit: Int\n    $order: String\n    $page: Int\n    $search: String\n    $sortBy: String\n    $isPublished: Boolean\n  ) {\n    getAllPosts(\n      category: $category\n      limit: $limit\n      order: $order\n      page: $page\n      search: $search\n      sortBy: $sortBy\n      isPublished: $isPublished\n    ) {\n      data {\n        id\n        title\n        category {\n          id\n          name\n        }\n        isPublished\n        publishedAt\n        createdAt\n        updatedAt\n      }\n      meta {\n        currentPage\n        pages\n        total\n      }\n    }\n  }\n": types.GetAllPostsDocument,
     "\n  query adminGetPost($postId: ID!) {\n    adminGetPost(id: $postId) {\n      post {\n        id\n        title\n        coverImage\n        preview\n        slug\n        audio\n        body\n        category {\n          id\n          name\n        }\n        isPublished\n        publishedAt\n        createdAt\n        updatedAt\n      }\n      comments\n      likes\n    }\n  }\n": types.AdminGetPostDocument,
     "\n  query getPreviousAndNextosts($postId: ID!) {\n    getPreviousAndNextPosts(postId: $postId) {\n      next {\n        title\n        slug\n        id\n      }\n      prev {\n        title\n        slug\n        id\n      }\n    }\n  }\n": types.GetPreviousAndNextostsDocument,
@@ -118,7 +118,7 @@ export function gql(source: "\n  mutation unpublishPost($postId: ID!) {\n    unp
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation featurePost($postId: ID!, $themeId: ID!) {\n    featurePost(postId: $postId, themeId: $themeId)\n  }\n"): (typeof documents)["\n  mutation featurePost($postId: ID!, $themeId: ID!) {\n    featurePost(postId: $postId, themeId: $themeId)\n  }\n"];
+export function gql(source: "\n  mutation featurePost($postId: ID!, $themeId: ID!, $index: Int) {\n    featurePost(postId: $postId, themeId: $themeId, index: $index)\n  }\n"): (typeof documents)["\n  mutation featurePost($postId: ID!, $themeId: ID!, $index: Int) {\n    featurePost(postId: $postId, themeId: $themeId, index: $index)\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -166,7 +166,7 @@ export function gql(source: "\n  query getComments($postId: ID!, $page: Int, $li
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query featuredPosts {\n    getFeaturedPosts {\n      theme {\n        name\n      }\n      post {\n        id\n        title\n        coverImage\n        preview\n        slug\n        category {\n          id\n          name\n        }\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query featuredPosts {\n    getFeaturedPosts {\n      theme {\n        name\n      }\n      post {\n        id\n        title\n        coverImage\n        preview\n        slug\n        category {\n          id\n          name\n        }\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"];
+export function gql(source: "\n  query featuredPosts {\n    getFeaturedPosts {\n      theme {\n        name\n      }\n      index\n      post {\n        id\n        title\n        coverImage\n        preview\n        slug\n        category {\n          id\n          name\n        }\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query featuredPosts {\n    getFeaturedPosts {\n      theme {\n        name\n      }\n      index\n      post {\n        id\n        title\n        coverImage\n        preview\n        slug\n        category {\n          id\n          name\n        }\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -23,12 +23,19 @@ export const links2 = [
     },
     children: [
       {
+        icon: 'material-symbols:draft-orders-outline',
         url: '/posts/?type=drafts',
         title: 'Drafts',
       },
       {
+        icon: 'ph:telegram-logo',
         url: '/posts/?type=published',
         title: 'Published',
+      },
+      {
+        icon: 'ic:twotone-star-outline',
+        url: '/posts/featured',
+        title: 'Featured',
       },
     ],
   },

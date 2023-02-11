@@ -25,6 +25,10 @@
     @apply relative font-catamaran text-sm lg:text-lg;
   }
 
+  ol {
+    @apply ml-5 list-decimal lg:ml-10;
+  }
+
   ul {
     @apply ml-5 list-disc lg:ml-10;
   }
@@ -41,8 +45,12 @@
     @apply mx-auto my-10 w-[40%] border-4 border-dashed md:w-40;
   }
 
+  figure {
+    @apply max-w-screen-sm;
+  }
+
   figcaption {
-    @apply mt-3 text-center font-catamaran text-xs md:text-sm;
+    @apply mt-5 text-center font-catamaran text-xs md:text-sm;
   }
 
   code {
@@ -51,5 +59,13 @@
 
   a {
     @apply font-semibold italic text-primary-main underline;
+  }
+
+  iframe {
+    @apply mx-auto;
+  }
+
+  blockquote {
+    @apply border-l-4 border-primary-main;
   }
 }
