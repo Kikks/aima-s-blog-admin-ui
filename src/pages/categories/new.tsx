@@ -13,6 +13,7 @@ import TextArea from '@/components/lib/TextArea';
 import { CREATE_CATEGORY } from '@/graphql/mutations/categories.mutations';
 import {
   COUNT_CATEGORIES,
+  GET_CATEGORIES,
   GET_CATEGORIES_STATS,
 } from '@/graphql/queries/category.queries';
 import PageLayout from '@/layouts/PageLayout';
@@ -54,8 +55,12 @@ const NewCategory = () => {
           query: GET_CATEGORIES_STATS,
         },
         {
+          query: GET_CATEGORIES,
+        },
+        {
           query: COUNT_CATEGORIES,
         },
+        'getCategories',
         'getCategoryStats',
         'countCategories',
       ],

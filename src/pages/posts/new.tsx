@@ -13,6 +13,7 @@ import Loader from '@/components/lib/Loader';
 import Text from '@/components/lib/Text';
 import NewPostSettings from '@/components/pages/posts/NewPostSettings';
 import { CREATE_POST } from '@/graphql/mutations/post.mutations';
+import { GET_CATEGORIES_STATS } from '@/graphql/queries/category.queries';
 import { COUNT_POSTS, GET_POSTS } from '@/graphql/queries/post.queries';
 import { useToggle } from '@/hooks';
 import AutchCheck from '@/layouts/AutchCheck';
@@ -57,6 +58,10 @@ const NewPost = () => {
       {
         query: COUNT_POSTS,
       },
+      {
+        query: GET_CATEGORIES_STATS,
+      },
+      'getCategoryStats',
       'countPosts',
       'getAllPosts',
     ],

@@ -13,7 +13,6 @@ import { DELETE_CATEGORY } from '@/graphql/mutations/categories.mutations';
 import {
   COUNT_CATEGORIES,
   GET_CATEGORIES_STATS,
-  GET_CATEGORY,
 } from '@/graphql/queries/category.queries';
 import { COUNT_POSTS, GET_POSTS } from '@/graphql/queries/post.queries';
 import { useToggle } from '@/hooks';
@@ -31,9 +30,6 @@ const DeleteCategory: FC<DeleteCategoryProps> = ({ categoryId }) => {
         query: GET_CATEGORIES_STATS,
       },
       {
-        query: GET_CATEGORY,
-      },
-      {
         query: GET_POSTS,
       },
       {
@@ -45,7 +41,6 @@ const DeleteCategory: FC<DeleteCategoryProps> = ({ categoryId }) => {
       'getAllPosts',
       'countPosts',
       'getCategoryStats',
-      'getCategory',
       'countCategories',
     ],
     onCompleted() {

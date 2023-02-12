@@ -181,20 +181,22 @@ const Dashboard = () => {
               </Table>
             )}
 
-            <Link href="/posts" passHref>
-              <a>
-                <Button
-                  variant="outline"
-                  className="flex items-center justify-center gap-2"
-                >
-                  View all posts{' '}
-                  <Icon
-                    icon="material-symbols:arrow-right-alt-rounded"
-                    className="text-2xl"
-                  />
-                </Button>
-              </a>
-            </Link>
+            {(posts || []).length > 0 && (
+              <Link href="/posts" passHref>
+                <a>
+                  <Button
+                    variant="outline"
+                    className="flex items-center justify-center gap-2"
+                  >
+                    View all posts{' '}
+                    <Icon
+                      icon="material-symbols:arrow-right-alt-rounded"
+                      className="text-2xl"
+                    />
+                  </Button>
+                </a>
+              </Link>
+            )}
           </div>
         </Card>
 
@@ -223,20 +225,22 @@ const Dashboard = () => {
               )}
             </div>
 
-            <Link href="/posts/featured" passHref>
-              <a>
-                <Button
-                  variant="outline"
-                  className="flex items-center justify-center gap-2"
-                >
-                  Edit featured posts{' '}
-                  <Icon
-                    icon="material-symbols:arrow-right-alt-rounded"
-                    className="text-2xl"
-                  />
-                </Button>
-              </a>
-            </Link>
+            {(featuredPosts || []).length > 0 && (
+              <Link href="/posts/featured" passHref>
+                <a>
+                  <Button
+                    variant="outline"
+                    className="flex items-center justify-center gap-2"
+                  >
+                    Edit featured posts{' '}
+                    <Icon
+                      icon="material-symbols:arrow-right-alt-rounded"
+                      className="text-2xl"
+                    />
+                  </Button>
+                </a>
+              </Link>
+            )}
           </div>
         </Card>
 

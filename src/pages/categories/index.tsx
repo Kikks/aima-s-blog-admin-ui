@@ -119,8 +119,6 @@ const Categories = () => {
         )}
       </Card>
 
-      <div className="h-[1000px]" />
-
       {loading && <FullPageLoader />}
     </PageLayout>
   );

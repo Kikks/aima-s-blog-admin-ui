@@ -9,7 +9,11 @@ import Button from '@/components/lib/Button';
 import Heading from '@/components/lib/Heading';
 import Text from '@/components/lib/Text';
 import { DELETE_POST } from '@/graphql/mutations/post.mutations';
-import { COUNT_POSTS, GET_POSTS } from '@/graphql/queries/post.queries';
+import {
+  COUNT_POSTS,
+  GET_FEATURED_POSTS,
+  GET_POSTS,
+} from '@/graphql/queries/post.queries';
 
 import type DeletePostModalProps from './DeleteModal.props';
 
@@ -35,6 +39,10 @@ const DeletePostModal: FC<DeletePostModalProps> = ({
       {
         query: COUNT_POSTS,
       },
+      {
+        query: GET_FEATURED_POSTS,
+      },
+      'getFeaturedPosts',
       'getAllPosts',
       'countPosts',
     ],

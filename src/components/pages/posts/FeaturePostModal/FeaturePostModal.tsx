@@ -3,17 +3,16 @@ import { Icon } from '@iconify/react';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import React, { useState } from 'react';
+import Autocomplete from 'react-autocomplete';
 import { toast } from 'react-hot-toast';
 
 import Button from '@/components/lib/Button';
 import Heading from '@/components/lib/Heading';
-import Input from '@/components/lib/Input';
 import Loader from '@/components/lib/Loader';
 import Text from '@/components/lib/Text';
 import { FEATURE_POST } from '@/graphql/mutations/post.mutations';
 import { GET_THEMES } from '@/graphql/mutations/theme.queries';
 import { GET_FEATURED_POSTS, GET_POSTS } from '@/graphql/queries/post.queries';
-import { useDebounce } from '@/hooks';
 import type IPost from '@/types/Post.type';
 import type ITheme from '@/types/Theme.type';
 import { isEmpty } from '@/utils/validators/helpers';
@@ -26,13 +25,10 @@ const FeaturePostModal: FC<FeaturePostModalProps> = ({
   onClose,
   activeIndex,
 }) => {
-  const [search, setSearch] = useState('');
-  const [showMenu, setShowMenu] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState('');
   const [selectedPost, setSelectedPost] = useState('');
   const [themes, setThemes] = useState<(ITheme | null)[]>([]);
   const [posts, setPosts] = useState<(IPost | null)[]>([]);
-  const debouncedSearch = useDebounce(search, 500);
 
   const { loading: themesLoading } = useQuery(GET_THEMES, {
     onCompleted(response) {
@@ -43,16 +39,14 @@ const FeaturePostModal: FC<FeaturePostModalProps> = ({
     },
   });
 
-  const { loading: postsLoading } = useQuery(GET_POSTS, {
+  useQuery(GET_POSTS, {
     variables: {
-      search: debouncedSearch as string,
       page: 1,
-      limit: 5,
+      limit: 100,
       isPublished: true,
     },
     onCompleted(response) {
       setPosts(response?.getAllPosts?.data || []);
-      setShowMenu(true);
     },
     onError() {
       // toast.error(error.message);
@@ -61,7 +55,6 @@ const FeaturePostModal: FC<FeaturePostModalProps> = ({
 
   const [mutate, { loading }] = useMutation(FEATURE_POST, {
     onCompleted() {
-      setSearch('');
       setSelectedPost('');
       setSelectedTheme('');
       toast.success('Post featured successfully');
@@ -72,12 +65,6 @@ const FeaturePostModal: FC<FeaturePostModalProps> = ({
     },
     refetchQueries: [{ query: GET_FEATURED_POSTS }, 'getFeaturedPosts'],
   });
-
-  const handlePostClicked = (id: string, title: string) => {
-    setSelectedPost(id);
-    setSearch(title);
-    setShowMenu(false);
-  };
 
   const handleThemeClicked = (id: string) => {
     if (loading) return;
@@ -96,17 +83,16 @@ const FeaturePostModal: FC<FeaturePostModalProps> = ({
       return;
     }
 
-    const postTitle =
-      posts.find((item) => item?.id === selectedPost)?.title || '';
+    const postId = posts.find((item) => item?.title === selectedPost)?.id || '';
 
-    if (search !== postTitle) {
+    if (isEmpty(postId)) {
       toast.error('No post with the entered title exists');
       return;
     }
 
     mutate({
       variables: {
-        postId: selectedPost,
+        postId,
         themeId: selectedTheme,
         index: activeIndex,
       },
@@ -140,41 +126,30 @@ const FeaturePostModal: FC<FeaturePostModalProps> = ({
 
             <div className="flex w-full flex-1 flex-col gap-10 overflow-y-auto px-5 md:px-10">
               <div className="relative z-10 w-full">
-                <Input
-                  value={search}
-                  disabled={loading}
-                  placeholder="Search post"
-                  label="What post will you like to feature?"
-                  onChange={(event) => setSearch(event.currentTarget.value)}
+                <Autocomplete
+                  getItemValue={(item) => item.title}
+                  items={posts}
+                  autoHighlight
+                  value={selectedPost}
+                  onChange={(e) => setSelectedPost(e.currentTarget.value)}
+                  onSelect={(val) => setSelectedPost(val)}
+                  inputProps={{
+                    className:
+                      'mx-auto flex w-full items-center overflow-hidden rounded-md border bg-[#fefefe] focus-within:border-primary-main flex-1 bg-transparent py-3 px-5 font-medium outline-none',
+                  }}
+                  wrapperStyle={{
+                    width: '100%',
+                  }}
+                  renderItem={(item, isHighlighted) => (
+                    <div
+                      className={`cursor-pointer p-3 hover:bg-gray-50 ${
+                        isHighlighted ? 'bg-gray-200' : 'bg-white'
+                      }`}
+                    >
+                      {item.title}
+                    </div>
+                  )}
                 />
-
-                {!isEmpty(debouncedSearch) && showMenu && (
-                  <div className="absolute top-[110%] left-0 max-h-[200px] w-full overflow-y-auto bg-white shadow-md">
-                    {/* eslint-disable-next-line no-nested-ternary */}
-                    {postsLoading ? (
-                      <div className="my-10 grid h-full place-items-center">
-                        <Loader color="#003049" />
-                      </div>
-                    ) : (posts || []).length === 0 ? (
-                      <div className="my-10 grid place-items-center text-center">
-                        <Text>No post with that title exists</Text>
-                      </div>
-                    ) : (
-                      (posts || []).map((item, index) => (
-                        <div
-                          key={index}
-                          role="button"
-                          className="w-full cursor-pointer p-3 hover:bg-gray-100"
-                          onClick={() =>
-                            handlePostClicked(item?.id || '', item?.title || '')
-                          }
-                        >
-                          <Text>{item?.title}</Text>
-                        </div>
-                      ))
-                    )}
-                  </div>
-                )}
               </div>
 
               <div className="z-0 grid flex-1 grid-cols-2 content-start gap-5 pb-3">
