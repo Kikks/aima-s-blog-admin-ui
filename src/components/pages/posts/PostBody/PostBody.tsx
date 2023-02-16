@@ -2,6 +2,7 @@ import Blocks from 'editorjs-blocks-react-renderer';
 import type { FC } from 'react';
 import { useMemo } from 'react';
 
+import LinkTool from './LinkTool';
 import styles from './PostBody.module.scss';
 import type PostBodyProps from './PostBody.props';
 
@@ -24,6 +25,9 @@ const PostBody: FC<PostBodyProps> = ({ body }) => {
               version: '2.17.0',
             }
           }
+          renderers={{
+            linkTool: LinkTool,
+          }}
           config={{
             embed: {
               className: 'border-0',

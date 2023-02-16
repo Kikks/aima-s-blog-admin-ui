@@ -126,10 +126,16 @@ const FeaturePostModal: FC<FeaturePostModalProps> = ({
 
             <div className="flex w-full flex-1 flex-col gap-10 overflow-y-auto px-5 md:px-10">
               <div className="relative z-10 w-full">
+                <label className="text-sm font-bold">
+                  What post would you like to feature?
+                </label>
                 <Autocomplete
                   getItemValue={(item) => item.title}
                   items={posts}
                   autoHighlight
+                  shouldItemRender={(item, value) =>
+                    item.title.toLowerCase().indexOf(value.toLowerCase()) > -1
+                  }
                   value={selectedPost}
                   onChange={(e) => setSelectedPost(e.currentTarget.value)}
                   onSelect={(val) => setSelectedPost(val)}
