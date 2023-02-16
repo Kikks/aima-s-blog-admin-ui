@@ -69,11 +69,11 @@ const SideNav: FC<SideNavProps> = ({ isOpen, onClose }) => {
         <hr className="border-rails-dark-gray/20 w-full" />
 
         <div className="w-full">
-          <SideNavLink
+          {/* <SideNavLink
             url="/settings"
             icon="material-symbols:settings-outline"
             title="Settings"
-          />
+          /> */}
 
           <SideNavLink
             url="/login"
