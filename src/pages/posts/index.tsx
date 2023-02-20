@@ -98,8 +98,8 @@ const Posts = () => {
       title="Posts"
       meta={
         <Meta
-          title="Posts | Aima's Corner Admin Panel"
-          description="The list of posts in Aima's corner"
+          title="Posts | Aima's Writing Admin Panel"
+          description="The list of posts in Aima's Writing"
         />
       }
       actionButton={

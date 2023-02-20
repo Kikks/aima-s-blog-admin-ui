@@ -26,7 +26,7 @@ module.exports = {
         'aima-black': '#003049',
         'aima-white': '#FCFCFC',
         primary: {
-          main: '#F44500',
+          main: '#FC951F',
           lighter: '#FFEBD3',
           light: '#FFDDB6',
           border: '#FAA888',

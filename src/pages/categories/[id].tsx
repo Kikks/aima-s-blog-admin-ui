@@ -151,7 +151,7 @@ const Category = () => {
       title={!isEmpty(categoryName) ? categoryName : '...'}
       meta={
         <Meta
-          title={`${categoryName} | Aima's Corner Admin Panel`}
+          title={`${categoryName} | Aima's Writing Admin Panel`}
           description={`The ${categoryName} category`}
         />
       }

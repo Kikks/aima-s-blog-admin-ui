@@ -119,8 +119,8 @@ const Dashboard = () => {
       title="Dashboard"
       meta={
         <Meta
-          title="Dashboard | Aima's Corner Admin Panel"
-          description="The dashboard for Aima's corner"
+          title="Dashboard | Aima's Writing Admin Panel"
+          description="The dashboard for Aima's Writing"
         />
       }
     >

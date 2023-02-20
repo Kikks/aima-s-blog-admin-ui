@@ -120,7 +120,7 @@ const NewCategory = () => {
       title="New Category"
       meta={
         <Meta
-          title={`New Category | Aima's Corner Admin Panel`}
+          title={`New Category | Aima's Writing Admin Panel`}
           description={`The New Category category`}
         />
       }

@@ -51,8 +51,8 @@ const Categories = () => {
       title="Categories"
       meta={
         <Meta
-          title="Categories | Aima's Corner Admin Panel"
-          description="The list of categories of posts in Aima's corner"
+          title="Categories | Aima's Writing Admin Panel"
+          description="The list of categories of posts in Aima's Writing"
         />
       }
       actionButton={

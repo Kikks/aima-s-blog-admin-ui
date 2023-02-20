@@ -204,7 +204,7 @@ const FeaturePostModal: FC<FeaturePostModalProps> = ({
               </Button>
               <Button
                 loading={loading}
-                className="w-1/2 bg-red-500"
+                className="w-1/2"
                 onClick={handleFeaturePost}
               >
                 Feature

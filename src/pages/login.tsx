@@ -123,7 +123,7 @@ const Login = () => {
           </Button>
         </form>
         <div className="hidden h-full w-full place-items-center bg-primary-lighter lg:grid lg:w-1/2">
-          <figure className="relative h-20 w-64 duration-200">
+          <figure className="relative h-24 w-64 duration-200">
             <Image src="/assets/images/logo.png" layout="fill" alt="Logo" />
           </figure>
         </div>

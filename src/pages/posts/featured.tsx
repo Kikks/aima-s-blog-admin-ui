@@ -67,8 +67,8 @@ const FeawturedPosts = () => {
       title="Featured Posts"
       meta={
         <Meta
-          title="Featured Posts | Aima's Corner Admin Panel"
-          description="The list of featured posts in Aima's corner"
+          title="Featured Posts | Aima's Writing Admin Panel"
+          description="The list of featured posts in Aima's Writing"
         />
       }
     >

@@ -45,8 +45,8 @@ const Members = () => {
       title="Members"
       meta={
         <Meta
-          title="Members | Aima's Corner Admin Panel"
-          description="The list of members of Aima's corner"
+          title="Members | Aima's Writing Admin Panel"
+          description="The list of members of Aima's Writing"
         />
       }
     >

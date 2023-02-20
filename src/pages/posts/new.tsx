@@ -147,7 +147,7 @@ const NewPost = () => {
   return (
     <AutchCheck>
       <Meta
-        title="New Post | Aima's Corner Admin Panel"
+        title="New Post | Aima's Writing Admin Panel"
         description="Create a new post"
       />
 

@@ -20,7 +20,7 @@ const SharePost: FC<SharePostProps> = ({ slug }) => {
   const handleShareToWhatsapp = () => {
     window.open(
       `whatsapp://send?text=${encodeURI(
-        `Check out this amazing article from Aima's Corner:\n${`${clientUrl}/posts/${slug}`}`
+        `Check out this amazing article from Aima's Writing:\n${`${clientUrl}/posts/${slug}`}`
       )}`
     );
   };
@@ -28,7 +28,7 @@ const SharePost: FC<SharePostProps> = ({ slug }) => {
   const handleShareToTwitter = () => {
     window.open(
       `https://twitter.com/intent/tweet?text=${encodeURI(
-        `Check out this amazing article from Aima's Corner:\n${`${clientUrl}/posts/${slug}`}`
+        `Check out this amazing article from Aima's Writing:\n${`${clientUrl}/posts/${slug}`}`
       )}`
     );
   };

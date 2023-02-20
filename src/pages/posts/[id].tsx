@@ -205,7 +205,7 @@ const EditPost = () => {
   return (
     <AutchCheck>
       <Meta
-        title="Edit Post | Aima's Corner Admin Panel"
+        title="Edit Post | Aima's Writing Admin Panel"
         description="Edit post"
       />
 
