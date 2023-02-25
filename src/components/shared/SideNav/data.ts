@@ -5,7 +5,7 @@ export const links = [
     title: 'Dashboard',
   },
   {
-    foregin: true,
+    foreign: true,
     url: process.env.NEXT_PUBLIC_CLIENT_APP || '',
     icon: 'ri:layout-line',
     title: 'View site',

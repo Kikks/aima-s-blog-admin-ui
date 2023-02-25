@@ -37,7 +37,7 @@ const SideNav: FC<SideNavProps> = ({ isOpen, onClose }) => {
               className="h-full w-full object-contain"
               layout="fill"
               src="/assets/icons/logo.svg"
-              alt="Gas Rail Logo"
+              alt="Aima's Writing Logo"
             />
           </figure>
 
