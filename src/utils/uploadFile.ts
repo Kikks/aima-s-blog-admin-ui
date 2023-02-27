@@ -13,7 +13,7 @@ const uploadFile = async (
 
   const response = await axios.post(uploadURL || cloudinaryImageURL, formData);
 
-  return response?.data?.url || '';
+  return response?.data?.secure_url || '';
 };
 
 export default uploadFile;
