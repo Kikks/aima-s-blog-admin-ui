@@ -7,7 +7,7 @@
   ],
   "rules": {
     "prettier/prettier": [
-      "error",
+      "warn",
       {
         "singleQuote": true,
         "endOfLine": "auto"
@@ -17,7 +17,10 @@
   "overrides": [
     // Configuration for TypeScript files
     {
-      "files": ["**/*.ts", "**/*.tsx"],
+      "files": [
+        "**/*.ts",
+        "**/*.tsx"
+      ],
       "plugins": [
         "@typescript-eslint",
         "unused-imports",
@@ -35,7 +38,7 @@
       },
       "rules": {
         "prettier/prettier": [
-          "error",
+          "warn",
           {
             "singleQuote": true,
             "endOfLine": "auto"
