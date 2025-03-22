@@ -26,6 +26,7 @@ const CustomEditor: FC<CustomEditorProps> = ({
         minHeight,
         holder: 'editor__container',
         data: defaultValue,
+        // @ts-ignore
         tools: EDITOR_JS_TOOLS,
         onReady() {
           // eslint-disable-next-line no-new
