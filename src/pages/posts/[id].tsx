@@ -3,12 +3,12 @@ import type EditorJS from '@editorjs/editorjs';
 import type { OutputData } from '@editorjs/editorjs';
 import { Icon } from '@iconify/react';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import type { FormEvent } from 'react';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
+import CloudImage from '@/components/lib/CloudImage';
 import FullPageLoader from '@/components/lib/FullPageLoader';
 import Loader from '@/components/lib/Loader';
 import Text from '@/components/lib/Text';
@@ -260,15 +260,15 @@ const EditPost = () => {
             {imageFile || coverImageUrl ? (
               <div className="mb-10 flex w-full flex-col items-end gap-2">
                 <figure className="relative aspect-video w-full">
-                  <Image
+                  <CloudImage
                     src={
                       coverImageUrl ||
                       (imageFile ? URL.createObjectURL(imageFile) : '')
                     }
                     alt=""
                     layout="fill"
+                    sizes="(min-width: 900px) 900px, 100vw"
                     className="h-full w-full object-cover duration-500 group-hover:scale-110"
-                    quality={100}
                   />
                 </figure>
                 <button
