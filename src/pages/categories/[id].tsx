@@ -1,6 +1,6 @@
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { Icon } from '@iconify/react';
-import Image from 'next/image';
+import CloudImage from '@/components/lib/CloudImage';
 import { useRouter } from 'next/router';
 import type { FormEvent } from 'react';
 import { useEffect, useState } from 'react';
@@ -188,8 +188,9 @@ const Category = () => {
 
                 {file || payload?.image ? (
                   <figure className="relative aspect-square w-full overflow-hidden rounded-md">
-                    <Image
+                    <CloudImage
                       layout="fill"
+                      sizes="(min-width: 768px) 400px, 100vw"
                       className="h-full w-full object-cover"
                       src={
                         file ? URL.createObjectURL(file) : payload?.image || ''

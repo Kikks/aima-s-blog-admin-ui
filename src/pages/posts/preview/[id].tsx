@@ -1,7 +1,7 @@
 import { useLazyQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
 import moment from 'moment';
-import Image from 'next/image';
+import CloudImage from '@/components/lib/CloudImage';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -71,12 +71,12 @@ const SinglePost = () => {
 
         <section className="mx-auto grid w-full max-w-[900px] place-items-center">
           <figure className="relative aspect-video w-full">
-            <Image
+            <CloudImage
               src={post?.coverImage || ''}
               alt={post?.title || ''}
               layout="fill"
+              sizes="(min-width: 900px) 900px, 100vw"
               className="h-full w-full object-cover duration-500 group-hover:scale-110"
-              quality={100}
             />
           </figure>
         </section>

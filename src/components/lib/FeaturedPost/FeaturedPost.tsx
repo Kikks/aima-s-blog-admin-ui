@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import CloudImage from '@/components/lib/CloudImage';
 import Link from 'next/link';
 import type { FC } from 'react';
 import React from 'react';
@@ -94,12 +94,16 @@ const FeaturedPost: FC<FeaturedPostProps> = ({
         "
       >
         <div className="relative h-full w-full overflow-hidden border-[6px] border-white">
-          <Image
+          <CloudImage
             src={post?.coverImage || '/assets/images/logo.png'}
             alt={post?.title || ''}
             layout="fill"
+            sizes={
+              variant === 'long'
+                ? '(min-width: 1024px) 600px, (min-width: 475px) 200px, 100vw'
+                : '(min-width: 1024px) 300px, (min-width: 475px) 200px, 100vw'
+            }
             className="h-full w-full object-cover duration-500 group-hover:scale-110"
-            quality={100}
           />
         </div>
       </motion.figure>

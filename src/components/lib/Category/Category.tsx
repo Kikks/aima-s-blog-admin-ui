@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import CloudImage from '@/components/lib/CloudImage';
 import Link from 'next/link';
 import type { FC } from 'react';
 import React from 'react';
@@ -12,13 +12,13 @@ const Category: FC<CategoryProps> = ({ id, name, image }) => {
   return (
     <div className="relative grid aspect-square w-full place-items-center overflow-hidden rounded-md p-10">
       <figure className="absolute top-0 left-0 z-0 h-full w-full overflow-hidden">
-        <Image
+        <CloudImage
           src={image || '/android-chrome-192x192.png'}
           alt=""
           layout="fill"
+          sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw"
           objectFit="cover"
           className="h-full w-full object-cover duration-500 group-hover:rotate-[3deg] group-hover:scale-110"
-          quality={100}
         />
       </figure>
 
