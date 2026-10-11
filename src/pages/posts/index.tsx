@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
-import moment from 'moment';
 import { useRouter } from 'next/router';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
@@ -34,6 +33,7 @@ import {
   orderOptions,
   postsSortByOptions,
 } from '@/utils/constants';
+import formatDate from '@/utils/formatDate';
 import trimString from '@/utils/trimString';
 
 const Posts = () => {
@@ -204,11 +204,7 @@ const Posts = () => {
                       <Text className="capitalize">{post?.category?.name}</Text>
                     </TableCell>
                     <TableCell url={`/posts/${post?.id}`}>
-                      <Text>
-                        {moment(Number(post?.createdAt || '')).format(
-                          'MMMM DD, YYYY'
-                        )}
-                      </Text>
+                      <Text>{formatDate(post?.createdAt)}</Text>
                     </TableCell>
                     <TableCell url={`/posts/${post?.id}`}>
                       {!post?.isPublished && (

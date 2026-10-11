@@ -1,7 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import { useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
-import moment from 'moment';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -36,6 +35,7 @@ import Meta from '@/templates/Meta';
 import type ICategory from '@/types/Category.type';
 import type IPost from '@/types/Post.type';
 import type ITheme from '@/types/Theme.type';
+import formatDate from '@/utils/formatDate';
 
 const Dashboard = () => {
   const [posts, setPosts] = useState<(IPost | null)[]>([]);
@@ -169,11 +169,7 @@ const Dashboard = () => {
                         <Text>{post?.isPublished ? 'Yes' : 'No'}</Text>
                       </TableCell>
                       <TableCell url={`/posts/${post?.id}`}>
-                        <Text>
-                          {moment(Number(post?.createdAt || '')).format(
-                            'MMMM DD, YYYY'
-                          )}
-                        </Text>
+                        <Text>{formatDate(post?.createdAt)}</Text>
                       </TableCell>
                     </TableRow>
                   ))}
