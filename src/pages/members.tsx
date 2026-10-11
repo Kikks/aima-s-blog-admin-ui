@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
-import moment from 'moment';
 import { useState } from 'react';
 
 import Avatar from '@/components/lib/Avatar';
@@ -23,6 +22,7 @@ import PageLayout from '@/layouts/PageLayout';
 import Meta from '@/templates/Meta';
 import type IUser from '@/types/User.type';
 import { defaultMeta } from '@/utils/constants';
+import formatDate from '@/utils/formatDate';
 
 const Members = () => {
   const [search, setSearch] = useState('');
@@ -98,11 +98,7 @@ const Members = () => {
                       <Text>{user?.email}</Text>
                     </TableCell>
                     <TableCell>
-                      <Text>
-                        {moment(Number(user?.createdAt || '')).format(
-                          'MMMM DD, YYYY'
-                        )}
-                      </Text>
+                      <Text>{formatDate(user?.createdAt)}</Text>
                     </TableCell>
                   </TableRow>
                 ))}

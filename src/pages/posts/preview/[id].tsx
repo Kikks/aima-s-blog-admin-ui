@@ -1,6 +1,5 @@
 import { useLazyQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
-import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -13,6 +12,7 @@ import SharePost from '@/components/pages/posts/SharePost';
 import { GET_POST } from '@/graphql/queries/post.queries';
 import AuthCheck from '@/layouts/AutchCheck/AuthCheck';
 import type IPost from '@/types/Post.type';
+import formatDate from '@/utils/formatDate';
 import { isEmpty } from '@/utils/validators/helpers';
 
 const SinglePost = () => {
@@ -83,7 +83,7 @@ const SinglePost = () => {
 
         <section className="mx-auto w-full max-w-[900px] px-5">
           <Text variant="caption" className="text-center text-primary-main">
-            {moment(Number(post?.createdAt || '')).format('MMMM DD, YYYY')}
+            {formatDate(post?.createdAt)}
           </Text>
         </section>
 
