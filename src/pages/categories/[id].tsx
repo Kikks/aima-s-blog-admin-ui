@@ -1,6 +1,5 @@
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { Icon } from '@iconify/react';
-import CloudImage from '@/components/lib/CloudImage';
 import { useRouter } from 'next/router';
 import type { FormEvent } from 'react';
 import { useEffect, useState } from 'react';
@@ -8,6 +7,7 @@ import { toast } from 'react-hot-toast';
 
 import Button from '@/components/lib/Button';
 import Card from '@/components/lib/Card';
+import CloudImage from '@/components/lib/CloudImage';
 import FullPageLoader from '@/components/lib/FullPageLoader';
 import Input from '@/components/lib/Input';
 import TextArea from '@/components/lib/TextArea';

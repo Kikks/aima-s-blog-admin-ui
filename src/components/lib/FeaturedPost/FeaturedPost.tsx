@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
-import CloudImage from '@/components/lib/CloudImage';
 import Link from 'next/link';
 import type { FC } from 'react';
 import React from 'react';
 
+import CloudImage from '@/components/lib/CloudImage';
 import match from '@/utils/match';
 import trimString from '@/utils/trimString';
 

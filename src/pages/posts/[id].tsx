@@ -3,12 +3,12 @@ import type EditorJS from '@editorjs/editorjs';
 import type { OutputData } from '@editorjs/editorjs';
 import { Icon } from '@iconify/react';
 import dynamic from 'next/dynamic';
-import CloudImage from '@/components/lib/CloudImage';
 import { useRouter } from 'next/router';
 import type { FormEvent } from 'react';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
+import CloudImage from '@/components/lib/CloudImage';
 import FullPageLoader from '@/components/lib/FullPageLoader';
 import Loader from '@/components/lib/Loader';
 import Text from '@/components/lib/Text';

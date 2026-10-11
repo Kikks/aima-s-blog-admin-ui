@@ -1,10 +1,10 @@
 import { useLazyQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
 import moment from 'moment';
-import CloudImage from '@/components/lib/CloudImage';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+import CloudImage from '@/components/lib/CloudImage';
 import FullPageLoader from '@/components/lib/FullPageLoader';
 import Text from '@/components/lib/Text';
 import PostBody from '@/components/pages/posts/PostBody';

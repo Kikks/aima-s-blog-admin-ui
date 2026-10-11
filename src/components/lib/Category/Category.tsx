@@ -1,9 +1,9 @@
-import CloudImage from '@/components/lib/CloudImage';
 import Link from 'next/link';
 import type { FC } from 'react';
 import React from 'react';
 
 import Button from '@/components/lib/Button';
+import CloudImage from '@/components/lib/CloudImage';
 import Heading from '@/components/lib/Heading';
 
 import type CategoryProps from './Category.props';
